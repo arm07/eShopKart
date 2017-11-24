@@ -24,9 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/my_button"
             android:text="Sign In or Sign Up"
             android:textAllCaps="true"
+            android:onClick=""
             android:textColor="@color/colorPrimary" />
 
         <TextView

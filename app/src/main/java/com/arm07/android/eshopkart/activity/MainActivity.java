@@ -12,11 +12,35 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
+import com.arm07.android.eshopkart.fragment.MyStuffFragment;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // mTextMessage = (TextView) findViewById(R.id.message);
+
+
+        /*MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (savedFragment == null) {
+            MyStuffFragment listFragment = new MyStuffFragment();
+            android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+            fragmentTransaction.add(R.id.content, listFragment);
+            fragmentTransaction.commit();
+        }*/
+
+        BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
+        navigation.enableShiftingMode(false);
+        //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
 
    /* mBottomNavigationView = (BottomNavigationViewEx) findViewById(R.id.bottom_navigation);
 mBottomNavigationView.enableShiftingMode(false);*/
@@ -36,8 +60,8 @@ mBottomNavigationView.enableShiftingMode(false);*/
                    // mTextMessage.setText(R.string.title_notifications);
                     return true;
                 case R.id.navigation_mystuff:
-
-                   /* MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+                    //mTextMessage.setText(R.string.title_MyStuff);
+                    MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager().findFragmentById(R.id.content);
                     if (savedFragment == null) {
                         MyStuffFragment listFragment = new MyStuffFragment();
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
@@ -45,7 +69,6 @@ mBottomNavigationView.enableShiftingMode(false);*/
                         fragmentTransaction.add(R.id.content, listFragment);
                         fragmentTransaction.commit();
                     }
-*/
                     return true;
             }
             return false;
@@ -78,27 +101,6 @@ mBottomNavigationView.enableShiftingMode(false);*/
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-       // mTextMessage = (TextView) findViewById(R.id.message);
-
-
-        /*MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-        if (savedFragment == null) {
-            MyStuffFragment listFragment = new MyStuffFragment();
-            android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-            fragmentTransaction.add(R.id.content, listFragment);
-            fragmentTransaction.commit();
-        }*/
-
-        BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
-        navigation.enableShiftingMode(false);
-        //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
 
 }
