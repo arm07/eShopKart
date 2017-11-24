@@ -2,34 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
+    android:id="@+id/listMyStuff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/itemImage"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:scaleType="center"
-        android:layout_margin="8dp"
-        app:srcCompat="@drawable/ic_notifications_black_24dp" />
 
-    <TextView
-        android:id="@+id/itemText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:layout_weight="3"
-        android:textSize="24sp"
-        android:text="New Text" />
+        <ImageView
+            android:id="@+id/itemImageIcon"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:layout_margin="8dp"
+            app:srcCompat="@drawable/ic_notifications_black_24dp" />
 
-    <ImageView
-        android:id="@+id/itemImageArrow"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:scaleType="center"
-        android:layout_margin="8dp"
-        app:srcCompat="@drawable/ic_greater_than" />
+        <TextView
+            android:id="@+id/itemText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:layout_weight="3"
+            android:textSize="24sp"
+            android:text="New Text" />
+
+        <ImageView
+            android:id="@+id/itemImageArrow"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:layout_margin="8dp"
+            app:srcCompat="@drawable/ic_greater_than" />
 
 </LinearLayout>

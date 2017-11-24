@@ -1,4 +1,4 @@
-package com.arm07.android.eshopkart;
+package com.arm07.android.eshopkart.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.arm07.android.eshopkart.R;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,15 +37,15 @@ mBottomNavigationView.enableShiftingMode(false);*/
                     return true;
                 case R.id.navigation_mystuff:
 
-                    com.arm07.android.eshopkart.MyStuffFragment savedFragment= (com.arm07.android.eshopkart.MyStuffFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+                   /* MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager().findFragmentById(R.id.content);
                     if (savedFragment == null) {
-                        com.arm07.android.eshopkart.MyStuffFragment listFragment = new com.arm07.android.eshopkart.MyStuffFragment();
+                        MyStuffFragment listFragment = new MyStuffFragment();
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                         fragmentTransaction.add(R.id.content, listFragment);
                         fragmentTransaction.commit();
                     }
-
+*/
                     return true;
             }
             return false;
