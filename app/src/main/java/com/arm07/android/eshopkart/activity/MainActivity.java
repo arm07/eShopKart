@@ -95,9 +95,7 @@ mBottomNavigationView.enableShiftingMode(false);*/
             }
             return false;
         }
-
     };
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

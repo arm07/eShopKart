@@ -21,13 +21,14 @@
 
         <Button
             style="?android:attr/buttonStyleSmall"
+            android:id="@+id/signInOrSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@drawable/my_button"
             android:text="Sign In or Sign Up"
             android:textAllCaps="true"
-
+            android:onClick="signIn"
             android:textColor="@color/colorPrimary" />
 
         <TextView
