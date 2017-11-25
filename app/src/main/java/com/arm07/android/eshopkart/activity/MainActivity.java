@@ -56,6 +56,15 @@ mBottomNavigationView.enableShiftingMode(false);*/
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                         fragmentTransaction.add(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                        Log.i("MYTEST_home2","HOME");
+                    }
+                    else{
+                        FeaturedFragment featuredFragment1 = new FeaturedFragment();
+                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                        fragmentTransaction.replace(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
                         fragmentTransaction.commit();
                         Log.i("MYTEST_home2","HOME");
                     }
@@ -71,6 +80,16 @@ mBottomNavigationView.enableShiftingMode(false);*/
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                         fragmentTransaction.add(R.id.content, exploreFragment1,EXPLORE_FRAGMENT);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                        Log.i("MYTEST_explore2","explore");
+                    }
+                    else{
+                        ExploreFragment exploreFragment1 = new ExploreFragment();
+                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                        fragmentTransaction.replace(R.id.content, exploreFragment1,EXPLORE_FRAGMENT);
+                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         Log.i("MYTEST_explore2","explore");
                     }
@@ -87,10 +106,19 @@ mBottomNavigationView.enableShiftingMode(false);*/
                         MyStuffFragment myStuffFragment = new MyStuffFragment();
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                        fragmentTransaction.add(R.id.content, myStuffFragment,MY_STUFF_FRAGMENT);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                    else {
+                        MyStuffFragment myStuffFragment = new MyStuffFragment();
+                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                         fragmentTransaction.replace(R.id.content, myStuffFragment,MY_STUFF_FRAGMENT);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     }
+
                     return true;
             }
             return false;
