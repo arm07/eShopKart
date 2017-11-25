@@ -42,4 +42,8 @@ dependencies {
     compile 'com.mcxiaoke.volley:library-aar:1.0.1'
     //Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // butter knife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

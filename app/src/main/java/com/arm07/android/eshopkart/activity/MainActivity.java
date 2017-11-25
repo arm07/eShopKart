@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
+import com.arm07.android.eshopkart.fragment.ExploreFragment;
 import com.arm07.android.eshopkart.fragment.FeaturedFragment;
 import com.arm07.android.eshopkart.fragment.MyStuffFragment;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String MY_STUFF_FRAGMENT="mystuff_fragment";
     public static final String FEATURED_FRAGMENT="featured_fragment";
+    public static final String EXPLORE_FRAGMENT="Eexplore_fragment";
 
     private TextView mTextMessage;
 
@@ -60,6 +62,18 @@ mBottomNavigationView.enableShiftingMode(false);*/
                     return true;
                 case R.id.navigation_search:
                     //mTextMessage.setText(R.string.title_search);
+                    Log.i("MYTEST_explore","explore");
+                    //mTextMessage.setText(R.string.title_home);
+                    ExploreFragment savedexploreFragment= (ExploreFragment) getSupportFragmentManager()
+                            .findFragmentByTag(EXPLORE_FRAGMENT);;
+                    if (savedexploreFragment == null) {
+                        ExploreFragment exploreFragment1 = new ExploreFragment();
+                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                        fragmentTransaction.add(R.id.content, exploreFragment1,EXPLORE_FRAGMENT);
+                        fragmentTransaction.commit();
+                        Log.i("MYTEST_explore2","explore");
+                    }
                     return true;
                 case R.id.navigation_notifications:
                    // mTextMessage.setText(R.string.title_notifications);
@@ -67,18 +81,6 @@ mBottomNavigationView.enableShiftingMode(false);*/
                 case R.id.navigation_mystuff:
                     Log.i("MYTEST_mystuff","mystuff");
                     //mTextMessage.setText(R.string.title_MyStuff);
-
-                    /*FeaturedFragment savedfeaturedFragment2= (FeaturedFragment) getSupportFragmentManager()
-                            .findFragmentByTag(FEATURED_FRAGMENT);;
-                    if (savedfeaturedFragment2 == null) {
-                        FeaturedFragment featuredFragment1 = new FeaturedFragment();
-                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.add(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
-                        fragmentTransaction.commit();
-                        Log.i("MYTEST_home2","HOME");
-                    }
-                    return true;*/
                     MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager()
                             .findFragmentByTag(MY_STUFF_FRAGMENT);
                     if (savedFragment == null) {
