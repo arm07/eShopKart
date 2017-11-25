@@ -45,7 +45,7 @@ mBottomNavigationView.enableShiftingMode(false);*/
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Log.d("MYTEST_home","HOME");
+                    Log.i("MYTEST_home","HOME");
                     //mTextMessage.setText(R.string.title_home);
                     FeaturedFragment savedfeaturedFragment= (FeaturedFragment) getSupportFragmentManager()
                             .findFragmentByTag(FEATURED_FRAGMENT);;
@@ -55,6 +55,7 @@ mBottomNavigationView.enableShiftingMode(false);*/
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                         fragmentTransaction.add(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
                         fragmentTransaction.commit();
+                        Log.i("MYTEST_home2","HOME");
                     }
                     return true;
                 case R.id.navigation_search:
@@ -66,13 +67,26 @@ mBottomNavigationView.enableShiftingMode(false);*/
                 case R.id.navigation_mystuff:
                     Log.i("MYTEST_mystuff","mystuff");
                     //mTextMessage.setText(R.string.title_MyStuff);
+
+                    /*FeaturedFragment savedfeaturedFragment2= (FeaturedFragment) getSupportFragmentManager()
+                            .findFragmentByTag(FEATURED_FRAGMENT);;
+                    if (savedfeaturedFragment2 == null) {
+                        FeaturedFragment featuredFragment1 = new FeaturedFragment();
+                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                        fragmentTransaction.add(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
+                        fragmentTransaction.commit();
+                        Log.i("MYTEST_home2","HOME");
+                    }
+                    return true;*/
                     MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager()
                             .findFragmentByTag(MY_STUFF_FRAGMENT);
                     if (savedFragment == null) {
                         MyStuffFragment myStuffFragment = new MyStuffFragment();
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.add(R.id.content, myStuffFragment,MY_STUFF_FRAGMENT);
+                        fragmentTransaction.replace(R.id.content, myStuffFragment,MY_STUFF_FRAGMENT);
+                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     }
                     return true;

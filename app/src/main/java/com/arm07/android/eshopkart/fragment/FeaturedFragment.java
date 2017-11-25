@@ -34,12 +34,12 @@ public class FeaturedFragment extends Fragment {
 
     RecyclerView recyclerView;
     ListAdapterFeatured adapter;
-    ArrayList<CategoryItem> mylistItems = new ArrayList<>();
+    ArrayList<CategoryItem> mylistItems;
     RecyclerView.LayoutManager layoutManager;
     CategoryItem ct;
     //List<CategoryItem> mylistItems ;
 
-    private String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key=ac9e5ba85e11f4d9ba9a98e53d74f6e5&user_id=908";
+    private String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
 
 
     @Nullable
@@ -52,6 +52,7 @@ public class FeaturedFragment extends Fragment {
         layoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
+        mylistItems = new ArrayList<>();
         loadRecylerView();
         return view;
     }
@@ -61,7 +62,7 @@ public class FeaturedFragment extends Fragment {
         StringRequest sr = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("MYTEST",response);
+                Log.i("MYTEST_RESPONSE",response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray categories = jsonObject.getJSONArray("Category");
@@ -70,13 +71,14 @@ public class FeaturedFragment extends Fragment {
                         String id=itemCategory.getString("Id");
                         String catagoryName=itemCategory.getString("CatagoryName");
                         String catagoryDiscription=itemCategory.getString("CatagoryDiscription");
-                        String catagoryImage=itemCategory.getString(" CatagoryImage");
+                        String catagoryImage=itemCategory.getString("CatagoryImage");
                         CategoryItem categoryItem=new CategoryItem(id,catagoryName,catagoryDiscription,catagoryImage);
                         mylistItems.add(categoryItem);
                     }
 
-                    adapter = new ListAdapterFeatured(getActivity(), R.layout.item_featured, mylistItems);
+                    adapter = new ListAdapterFeatured(getActivity(), mylistItems);
                     recyclerView.setAdapter(adapter);
+                    Log.i("MYTEST_RESPONSE_Finished",response);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

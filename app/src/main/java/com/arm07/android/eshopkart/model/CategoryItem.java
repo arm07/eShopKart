@@ -52,12 +52,18 @@ public class CategoryItem{
 
 	@Override
  	public String toString(){
-		return 
-			"CategoryItem{" + 
-			"catagoryImage = '" + catagoryImage + '\'' + 
-			",id = '" + id + '\'' + 
+		return
+				"CategoryItem{"+
+						"id='"+id+ '\'' +
+						",catagoryName = '" + catagoryName + '\'' +
+						",catagoryDiscription = '" + catagoryDiscription + '\'' +
+						",catagoryImage = '" + catagoryImage + '\'' +
+						"}";
+			/*"CategoryItem{" +
+			"catagoryImage = '" + catagoryImage + '\'' +
+			",id = '" + id + '\'' +
 			",catagoryName = '" + catagoryName + '\'' + 
-			",catagoryDiscription = '" + catagoryDiscription + '\'' + 
-			"}";
+			",catagoryDiscription = '" + catagoryDiscription + '\'' +
+			"}"*/
 		}
 }

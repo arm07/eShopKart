@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
 import com.arm07.android.eshopkart.model.CategoryItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,37 +19,34 @@ import java.util.List;
  * Created by rashmi on 11/24/2017.
  */
 
-public class ListAdapterFeatured extends RecyclerView.Adapter {
+public class ListAdapterFeatured extends RecyclerView.Adapter<ListAdapterFeatured.MyViewHolder> {
 
     private Context context;
     private List<CategoryItem> mCategoryItemList;
 
 
-    public ListAdapterFeatured(@NonNull Context context, int resource, @NonNull List objects) {
+    public ListAdapterFeatured(@NonNull Context context, @NonNull List<CategoryItem> objects) {
         this.context = context;
         this.mCategoryItemList = objects;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-
-        private TextView mTextView,mTextViewDesc;
+        private TextView catagoryName, categoryDesc;
         private ImageView mImageView;
         private int mIndex;
-
         public MyViewHolder(View itemView) {
             super(itemView);
-            mTextView=(TextView)itemView.findViewById(R.id.textNameInCard);
-            mTextViewDesc=(TextView)itemView.findViewById(R.id.textDescInCard);
-
+            catagoryName =(TextView)itemView.findViewById(R.id.textNameInCard);
+            categoryDesc =(TextView)itemView.findViewById(R.id.textDescInCard);
+            mImageView=(ImageView)itemView.findViewById(R.id.imageInFeatured);
         }
-
-        public void bindView(int position) {
+        /*public void bindView(int position) {
             mIndex=position;
             final CategoryItem myItem = mCategoryItemList.get(position);
-            mTextView.setText(mCategoryItemList.get(position).getCatagoryName());
-            mTextViewDesc.setText(mCategoryItemList.get(position).getCatagoryDiscription());
+            catagoryName.setText(mCategoryItemList.get(position).getCatagoryName());
+            categoryDesc.setText(mCategoryItemList.get(position).getCatagoryDiscription());
 
-        }
+        }*/
     }
 
     @Override
@@ -58,8 +56,16 @@ public class ListAdapterFeatured extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((MyViewHolder)holder).bindView(position);
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+
+        final CategoryItem myItem = mCategoryItemList.get(position);
+        holder.catagoryName.setText(mCategoryItemList.get(position).getCatagoryName());
+        holder.categoryDesc.setText(mCategoryItemList.get(position).getCatagoryDiscription());
+        Picasso.with(context)
+                .load(mCategoryItemList.get(position).getCatagoryImage())
+                .into(holder.mImageView);
+
+        //((MyViewHolder)holder).bindView(position);
 
         /*
         Picasso.with(context)
