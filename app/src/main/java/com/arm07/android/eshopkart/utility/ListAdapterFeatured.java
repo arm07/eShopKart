@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
 import com.arm07.android.eshopkart.model.CategoryItem;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -61,16 +61,14 @@ public class ListAdapterFeatured extends RecyclerView.Adapter<ListAdapterFeature
         final CategoryItem myItem = mCategoryItemList.get(position);
         holder.catagoryName.setText(mCategoryItemList.get(position).getCatagoryName());
         holder.categoryDesc.setText(mCategoryItemList.get(position).getCatagoryDiscription());
-        Picasso.with(context)
+        /*Picasso.with(context)
+                .load(mCategoryItemList.get(position).getCatagoryImage())
+                .into(holder.mImageView);*/
+
+        Glide.with(context)
                 .load(mCategoryItemList.get(position).getCatagoryImage())
                 .into(holder.mImageView);
-
         //((MyViewHolder)holder).bindView(position);
-
-        /*
-        Picasso.with(context)
-                .load(mCategoryItemList.get(position).getCatagoryImage())
-                .into(holder.imageView);*/
     }
 
     @Override

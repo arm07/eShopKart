@@ -32,6 +32,6 @@
             android:layout_weight="1"
             android:scaleType="center"
             android:layout_margin="8dp"
-            app:srcCompat="@drawable/ic_greater_than" />
+            app:srcCompat="@drawable/ic_right" />
 
 </LinearLayout>

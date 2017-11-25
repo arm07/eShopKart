@@ -28,7 +28,6 @@ public class ListAdapterMyStuff extends RecyclerView.Adapter {
             mTextView=(TextView)itemView.findViewById(R.id.itemText);
             mImageArrow=(ImageView)itemView.findViewById(R.id.itemImageArrow);
         }
-
         public void bindView(int position){
             mIndex=position;
             mTextView.setText(MyStuff.names[position]);

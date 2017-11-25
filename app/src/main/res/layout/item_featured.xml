@@ -38,7 +38,6 @@
                 android:layout_alignParentBottom="true"
                 android:text="Hello Card" />
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 
 </LinearLayout>

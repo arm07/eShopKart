@@ -27,7 +27,7 @@
             android:background="@drawable/my_button"
             android:text="Sign In or Sign Up"
             android:textAllCaps="true"
-            android:onClick=""
+
             android:textColor="@color/colorPrimary" />
 
         <TextView
