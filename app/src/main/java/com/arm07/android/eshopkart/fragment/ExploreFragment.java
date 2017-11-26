@@ -28,15 +28,21 @@ public class ExploreFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ListAdapterExplore mListAdapterExplore;
 
+    public interface ListExploreSelected{
+        void onListExploreSelected(int index);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ListExploreSelected listener=(ListExploreSelected)getActivity();
+
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
         recyclerView.setHasFixedSize(true);
 
-        mListAdapterExplore=new ListAdapterExplore();
+        mListAdapterExplore=new ListAdapterExplore(listener);
         recyclerView.setAdapter(mListAdapterExplore);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

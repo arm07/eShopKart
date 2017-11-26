@@ -16,13 +16,15 @@ import com.arm07.android.eshopkart.R;
 import com.arm07.android.eshopkart.fragment.ExploreFragment;
 import com.arm07.android.eshopkart.fragment.FeaturedFragment;
 import com.arm07.android.eshopkart.fragment.MyStuffFragment;
+import com.arm07.android.eshopkart.fragment.ProductFragment;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ExploreFragment.ListExploreSelected {
 
     public static final String MY_STUFF_FRAGMENT="mystuff_fragment";
     public static final String FEATURED_FRAGMENT="featured_fragment";
-    public static final String EXPLORE_FRAGMENT="Eexplore_fragment";
+    public static final String EXPLORE_FRAGMENT="Explore_fragment";
+    public static final String PRODUCT_FRAGMENT="Product_fragment";
 
     private TextView mTextMessage;
 
@@ -65,6 +67,7 @@ mBottomNavigationView.enableShiftingMode(false);*/
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                         fragmentTransaction.replace(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
+                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         Log.i("MYTEST_home2","HOME");
                     }
@@ -124,6 +127,18 @@ mBottomNavigationView.enableShiftingMode(false);*/
             return false;
         }
     };
+
+    @Override
+    public void onListExploreSelected(int index) {
+        Log.i("MYTEST_ExploreList","Products list");
+        ProductFragment productFragment = new ProductFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content, productFragment,PRODUCT_FRAGMENT);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -148,5 +163,6 @@ mBottomNavigationView.enableShiftingMode(false);*/
 
         return super.onCreateOptionsMenu(menu);
     }
+
 
 }

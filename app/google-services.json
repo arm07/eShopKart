@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "786599398890",
+    "project_id": "my-project-e-commerce-app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786599398890:android:09aa01f89c6eb748",
+        "android_client_info": {
+          "package_name": "com.arm07.android.eshopkart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786599398890-ib45un84gvpgrrs5r2c0qgt552t5o8q1.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "786599398890-u5c9hjdhsd0lj3c6oneatgt9gf2haoil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arm07.android.eshopkart",
+            "certificate_hash": "611e51d6797165f2e132f193672012822f1e8770"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6gRMKbJ5o6C4yb0wDHKrQ1cOfr0-QOro"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

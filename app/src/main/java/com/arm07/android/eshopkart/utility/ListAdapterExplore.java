@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
+import com.arm07.android.eshopkart.fragment.ExploreFragment;
 import com.arm07.android.eshopkart.model.Explore;
 
 /**
@@ -16,7 +17,12 @@ import com.arm07.android.eshopkart.model.Explore;
 
 public class ListAdapterExplore extends RecyclerView.Adapter {
 
-    public class ListViewHolderGoods extends RecyclerView.ViewHolder{
+    private final ExploreFragment.ListExploreSelected mListener;
+    public ListAdapterExplore(ExploreFragment.ListExploreSelected listener) {
+        mListener=listener;
+    }
+
+    public class ListViewHolderGoods extends RecyclerView.ViewHolder implements View.OnClickListener{
         //@BindView(R.id.itemInGoods)
         TextView textInGoods;
         //@BindView(R.id.itemImageDownArrow)
@@ -26,6 +32,8 @@ public class ListAdapterExplore extends RecyclerView.Adapter {
             super(itemView);
             textInGoods=(TextView)itemView.findViewById(R.id.itemInGoods);
             mImageDown=(ImageView)itemView.findViewById(R.id.itemImageDownArrow);
+
+            itemView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
@@ -33,9 +41,14 @@ public class ListAdapterExplore extends RecyclerView.Adapter {
             textInGoods.setText(Explore.goods[position]);
            //mImageDown.setImageResource(Explore.imageDown[position]);
         }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onListExploreSelected(mIndex);
+        }
     }
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)  {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_explore_goods,parent,false);
         return new ListViewHolderGoods(view);
     }
