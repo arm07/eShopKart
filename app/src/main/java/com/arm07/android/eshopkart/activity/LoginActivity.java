@@ -1,13 +1,23 @@
 package com.arm07.android.eshopkart.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.arm07.android.eshopkart.MainApplication;
 import com.arm07.android.eshopkart.R;
 import com.google.android.gms.auth.api.Auth;
@@ -23,8 +33,13 @@ import com.google.android.gms.common.api.Status;
 
 import net.openid.appauth.AuthState;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener {
+
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     private static final String USED_INTENT = "USED_INTENT";
     private static final String SHARED_PREFERENCES_NAME = "AuthStatePreference";
@@ -36,32 +51,136 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     AppCompatButton mAuthorize;
 
-    SignInButton mSignInButton;
+
     GoogleApiClient mGoogleApiClient;
     GoogleSignInClient mGoogleSignInClient;
     private static final int REQ_CODE=9001;
+
+    private SharedPreferences spref;
+
+    @BindView(R.id.sign_in_button)
+    SignInButton mSignInButton;
+    @BindView(R.id.appCompatButtonLogin)
+    AppCompatButton signInEmail;
+    @BindView(R.id.textInputEditTextEmail)
+    TextInputEditText email;
+    @BindView(R.id.textInputEditTextPassword)
+    TextInputEditText password;
+    @BindView(R.id.textInputEditTextMobileNum)
+    TextInputEditText phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mSignInButton=(SignInButton)findViewById(R.id.sign_in_button);
+        //mSignInButton=(SignInButton)findViewById(R.id.sign_in_button);
+
+        ButterKnife.bind(this);
         //mSignInButton.setOnClickListener();
+        spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
 
-       /*
+        signInEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-         mAuthorize = (AppCompatButton) findViewById(R.id.sign_in_button);
+                String input_phone = phone.getText().toString().trim();
+                String input_password = password.getText().toString().trim();
+
+                if(input_password.equals("") ||input_phone.equals(""))
+                {
+                    Toast.makeText(LoginActivity.this, "Please Enter Empty Fields", Toast.LENGTH_LONG).show();
+
+                }
+                else if(!(input_password.isEmpty()) && (!input_phone.isEmpty()))
+                {
+                    if (input_phone.length() == 10)
+                    {
+                        if (input_password.length() >= 6)
+                        {
+                            String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?" +
+                                    "mobile=" + input_phone + "&password=" + input_password;
+
+                            SharedPreferences.Editor editPef = spref.edit();
+                            editPef.putString("input_phone",input_phone);
+                            editPef.apply();
+
+                            signInUsingEmail(url);
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this, "Password Should be 6 or more Characters", Toast.LENGTH_LONG).show();
+                        }
+
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Mobile Should be 10 digit Number", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "Please Enter Empty Fields", Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        });
+
+        /* mAuthorize = (AppCompatButton) findViewById(R.id.sign_in_button);
         mAuthorize.setOnClickListener(new AuthorizeListener());
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        // Configure sign-in to request the user's ID, email address, and basic profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient=GoogleSignIn.getClient(this, gso);
-        mGoogleApiClient=new GoogleApiClient.Builder(this).enableAutoManage(this,this).
-                addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();*/
+        mGoogleApiClient=new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();*/
+
+    }
+
+
+    private void signInUsingEmail(String url) {
+
+        /*RApiInterface rApiInterface = RApiClient.getClient().create(RApiInterface.class);
+        Call<FeaturedResponse> featuredResponseCall= rApiInterface.getCategoryDetails(*//*"4c1dbea3d6cd43b13a036fcc684284f5",908*//*);
+        featuredResponseCall.enqueue(new Callback<FeaturedResponse>() {
+            @Override
+            public void onResponse(Call<FeaturedResponse> call, Response<FeaturedResponse> response) {
+                Log.i("response",response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<FeaturedResponse> call, Throwable t) {
+            }
+        });*/
+
+
+        String tag_string_req_home = "string_req";
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG,"Result:"+response);
+                if(response.contains("success")){
+                    Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
+                    Intent category_intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(category_intent);
+                } else if(response.contains("Mobile Number not register"))
+                {
+                    Toast.makeText(LoginActivity.this,"Mobile Number not register",Toast.LENGTH_LONG).show();
+                }
+                else if(response.contains("incorrect password"))
+                {
+                    Toast.makeText(LoginActivity.this,"incorrect password",Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        // Adding request to request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+        requestQueue.add(stringRequest);
+
+        //AppController.getInstance().addToRequestQueue(stringRequest, tag_string_req_home);
 
     }
 
