@@ -30,7 +30,7 @@ public class ListAdapterFeatured extends RecyclerView.Adapter<ListAdapterFeature
         this.mCategoryItemList = objects;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView catagoryName, categoryDesc;
         private ImageView mImageView;
         private int mIndex;

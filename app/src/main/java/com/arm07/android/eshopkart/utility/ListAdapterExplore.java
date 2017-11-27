@@ -17,12 +17,12 @@ import com.arm07.android.eshopkart.model.Explore;
 
 public class ListAdapterExplore extends RecyclerView.Adapter {
 
-    private final ExploreFragment.ListExploreSelected mListener;
+    private static ExploreFragment.ListExploreSelected mListener;
     public ListAdapterExplore(ExploreFragment.ListExploreSelected listener) {
         mListener=listener;
     }
 
-    public class ListViewHolderGoods extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ListViewHolderGoods extends RecyclerView.ViewHolder implements View.OnClickListener{
         //@BindView(R.id.itemInGoods)
         TextView textInGoods;
         //@BindView(R.id.itemImageDownArrow)
