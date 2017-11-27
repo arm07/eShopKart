@@ -3,6 +3,7 @@ package com.arm07.android.eshopkart.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -17,7 +18,6 @@ import com.arm07.android.eshopkart.fragment.ExploreFragment;
 import com.arm07.android.eshopkart.fragment.FeaturedFragment;
 import com.arm07.android.eshopkart.fragment.MyStuffFragment;
 import com.arm07.android.eshopkart.fragment.ProductFragment;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.roughike.bottombar.BottomBar;
 
 public class MainActivity extends AppCompatActivity implements ExploreFragment.ListExploreSelected,MyStuffFragment.ListMystuffSelected {
@@ -37,11 +37,12 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             //navigation.getMenu().findItem(R.id.navigation_saved).setVisible(true);
 
-            BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
-            navigation.enableShiftingMode(false);
+            //BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
+            //navigation.enableShiftingMode(false);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
        /* bottomBar = (BottomBar) findViewById(R.id.bottomBar);
@@ -62,88 +63,59 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.L
 
     }
 
-    private BottomNavigationViewEx.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationViewEx.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Log.i("MYTEST_home","HOME");
                     //mTextMessage.setText(R.string.title_home);
-                    FeaturedFragment savedfeaturedFragment= (FeaturedFragment) getSupportFragmentManager()
-                            .findFragmentByTag(FEATURED_FRAGMENT);;
-                    if (savedfeaturedFragment == null) {
-                        FeaturedFragment featuredFragment1 = new FeaturedFragment();
-                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.add(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                        Log.i("MYTEST_home2","HOME");
-                    }
-                    else{
+                    /*FeaturedFragment savedfeaturedFragment= (FeaturedFragment) getSupportFragmentManager()
+                            .findFragmentByTag(FEATURED_FRAGMENT);*/
+
                         FeaturedFragment featuredFragment1 = new FeaturedFragment();
                         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                         fragmentTransaction.replace(R.id.content, featuredFragment1,FEATURED_FRAGMENT);
-                        fragmentTransaction.addToBackStack(null);
+                        //fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         Log.i("MYTEST_home2","HOME");
-                    }
+
                     return true;
                 case R.id.navigation_search:
                     //mTextMessage.setText(R.string.title_search);
                     Log.i("MYTEST_explore","explore");
                     //mTextMessage.setText(R.string.title_home);
-                    ExploreFragment savedexploreFragment= (ExploreFragment) getSupportFragmentManager()
-                            .findFragmentByTag(EXPLORE_FRAGMENT);;
-                    if (savedexploreFragment == null) {
+                    /*ExploreFragment savedexploreFragment= (ExploreFragment) getSupportFragmentManager()
+                            .findFragmentByTag(EXPLORE_FRAGMENT);*/
+
                         ExploreFragment exploreFragment1 = new ExploreFragment();
-                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.add(R.id.content, exploreFragment1,EXPLORE_FRAGMENT);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                        android.support.v4.app.FragmentManager manager3 = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction3 = manager3.beginTransaction();
+                        fragmentTransaction3.replace(R.id.content, exploreFragment1,EXPLORE_FRAGMENT);
+                        //fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction3.commit();
                         Log.i("MYTEST_explore2","explore");
-                    }
-                    else{
-                        ExploreFragment exploreFragment1 = new ExploreFragment();
-                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content, exploreFragment1,EXPLORE_FRAGMENT);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                        Log.i("MYTEST_explore2","explore");
-                    }
+
                     return true;
-                case R.id.navigation_notifications:
+               /* case R.id.navigation_notifications:
                     // mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    return true;*/
 
                 case R.id.navigation_mystuff:
 
-                    /*user_looged_in = getIntent().getExtras().getBoolean(USER_LOGGED_IN);
-                    Toast.makeText(MainActivity.this,"FIRST TIME See"+user_looged_in,Toast.LENGTH_LONG).show();*/
                     Log.i("MYTEST_mystuff","mystuff");
                     //mTextMessage.setText(R.string.title_MyStuff);
-                    MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager()
-                            .findFragmentByTag(MY_STUFF_FRAGMENT);
-                    if (savedFragment == null) {
+                  /*  MyStuffFragment savedFragment= (MyStuffFragment) getSupportFragmentManager()
+                            .findFragmentByTag(MY_STUFF_FRAGMENT); */
+
                         MyStuffFragment myStuffFragment = new MyStuffFragment();
-                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.add(R.id.content, myStuffFragment,MY_STUFF_FRAGMENT);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                    }
-                    else {
-                        MyStuffFragment myStuffFragment = new MyStuffFragment();
-                        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content, myStuffFragment,MY_STUFF_FRAGMENT);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                    }
+                        android.support.v4.app.FragmentManager manager2 = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction2 = manager2.beginTransaction();
+                        fragmentTransaction2.replace(R.id.content, myStuffFragment,MY_STUFF_FRAGMENT);
+                        //fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction2.commit();
 
                     return true;
             }
@@ -221,8 +193,6 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.L
     }*/
 
     //navigation.getMenu().findItem(R.id.navigation_saved).setVisible(true);
-
-
 
     @Override
     public void onListExploreSelected(int index) {

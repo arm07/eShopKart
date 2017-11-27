@@ -8,26 +8,38 @@
     android:orientation="vertical"
     tools:context="com.arm07.android.eshopkart.activity.MainActivity">-->
 
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<FrameLayout
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1">
+    android:layout_above="@+id/navigation"/>
 
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+    <!--<com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="460dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:layout_gravity="bottom"
         app:menu="@menu/navigation_login" />
+    -->
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation_login" />
 
-</FrameLayout>
-
-
+</RelativeLayout>
 
     <!--
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
