@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -68,6 +69,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextInputEditText password;
     @BindView(R.id.textInputEditTextMobileNum)
     TextInputEditText phone;
+    @BindView(R.id.textInputEditTextName)
+    TextInputEditText FullName;
+    @BindView(R.id.textViewLinkRegister)
+    AppCompatTextView register;
+    @BindView(R.id.textViewLinkForgotPwd)
+    AppCompatTextView forgotPwd;
+    @BindView(R.id.textViewAlreadyAccount)
+    AppCompatTextView alreadyAccnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +88,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //mSignInButton.setOnClickListener();
         spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
 
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FullName.setVisibility(View.VISIBLE);
+                register.setVisibility(View.GONE);
+                forgotPwd.setVisibility(View.GONE);
+                alreadyAccnt.setVisibility(View.VISIBLE);
+                signInEmail.setText("SIGN UP");
+            }
+        });
+        alreadyAccnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInEmail.setText("SIGN IN");
+                FullName.setVisibility(View.GONE);
+                register.setVisibility(View.VISIBLE);
+                forgotPwd.setVisibility(View.VISIBLE);
+                alreadyAccnt.setVisibility(View.GONE);
+            }
+        });
+
         signInEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                String input_Name = FullName.getText().toString().trim();
+                String input_Email = email.getText().toString().trim();
                 String input_phone = phone.getText().toString().trim();
                 String input_password = password.getText().toString().trim();
 
@@ -97,14 +129,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     {
                         if (input_password.length() >= 6)
                         {
-                            String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?" +
-                                    "mobile=" + input_phone + "&password=" + input_password;
+                            if(signInEmail.getText().toString().toLowerCase().equals("sign in")){
+                                Toast.makeText(LoginActivity.this, "few conditions met", Toast.LENGTH_LONG).show();
 
-                            SharedPreferences.Editor editPef = spref.edit();
-                            editPef.putString("input_phone",input_phone);
-                            editPef.apply();
+                                String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?" +
+                                        "mobile=" + input_phone + "&password=" + input_password;
+                                SharedPreferences.Editor editPef = spref.edit();
+                                editPef.putString("input_phone",input_phone);
+                                editPef.apply();
 
-                            signInUsingEmail(url);
+                                signInUsingEmail(url);
+                            }
+
+                            else if(signInEmail.getText().toString().toLowerCase().equals("sign up")){
+
+                                if(!(input_Name.equals(""))&& !(input_Email.equals(""))&&!(input_phone.equals(""))&&!(input_password.equals(""))) {
+
+                                    if (input_Email.matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+")) {
+                                        String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reg.php?" +
+                                                "name=" + input_Name + "&email=" + input_Email + "&mobile=" + input_phone + "&password=" + input_password;
+                                        register_user(url);
+
+                                        FullName.setText("");
+                                        email.setText("");
+                                        phone.setText("");
+                                        password.setText("");
+                                    }
+                                    else {
+                                        Toast.makeText(LoginActivity.this,"Please Enter Valid Email" , Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                else if(input_Name.equals("")|| input_Email.equals("")||input_phone.equals("")||input_password.equals(""))
+                                {
+                                    Toast.makeText(LoginActivity.this,"Please Enter Empty Fields",Toast.LENGTH_LONG).show();
+                                }
+                            }
                         }
                         else
                         {
@@ -134,6 +193,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    private void register_user(String URL) {
+        String  tag_string_req = "string_req";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Result Response:",response);
+
+                if(response.contains("successfully registered")){
+
+                    Toast.makeText(LoginActivity.this,response.toString().toUpperCase()+"YOU CAN LOGIN NOW",Toast.LENGTH_LONG).show();
+                    Intent back_to_login = new Intent(LoginActivity.this,LoginActivity.class);
+                    startActivity(back_to_login);
+
+                }
+                else{
+                    Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
+                }
+
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        // Adding request to request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+        requestQueue.add(stringRequest);
+
+        //AppController.getInstance().addToRequestQueue(stringRequest, tag_string_req_home);
+    }
 
     private void signInUsingEmail(String url) {
 
@@ -150,19 +240,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });*/
 
-
         String tag_string_req_home = "string_req";
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Toast.makeText(LoginActivity.this, "got Response", Toast.LENGTH_LONG).show();
+
                 Log.d(TAG,"Result:"+response);
                 if(response.contains("success")){
                     Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
+
                     Intent category_intent = new Intent(LoginActivity.this, MainActivity.class);
+                    category_intent.putExtra(MainActivity.USER_LOGGED_IN,true);
+
+
                     startActivity(category_intent);
+
                 } else if(response.contains("Mobile Number not register"))
                 {
-                    Toast.makeText(LoginActivity.this,"Mobile Number not register",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"MOBILE NUMBER NOT REGISTERED - CREATE AN ACCOUNT",Toast.LENGTH_LONG).show();
                 }
                 else if(response.contains("incorrect password"))
                 {
@@ -336,9 +432,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account == null) {
-            updateUI(true);
-        } else {
             updateUI(false);
+        } else {
+            updateUI(true);
         }
     }
     @Override
@@ -347,7 +443,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId())
         {
             case R.id.sign_in_button:
-                Log.i("MYTEST_SIGNIN","signIn clicked");
+                Toast.makeText(getApplicationContext(), "Message- G-login clicked", Toast.LENGTH_LONG).show();
+                //Log.i("MYTEST_SIGNIN","signIn clicked");
                 signIn();
                 break;
 
