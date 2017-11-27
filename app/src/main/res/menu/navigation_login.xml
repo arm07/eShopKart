@@ -21,12 +21,6 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/navigation_saved"
-        android:icon="@drawable/ic_image_saved"
-        android:title="@string/title_saved"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/navigation_mystuff"
         android:icon="@drawable/ic_no_photo"
         android:title="@string/title_MyStuff" />

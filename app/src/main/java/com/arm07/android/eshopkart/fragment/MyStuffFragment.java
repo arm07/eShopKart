@@ -47,7 +47,6 @@ public class MyStuffFragment extends Fragment {
         //Passing the listener object to the adapter class for implementing onClick()
         listAdapterMyStuff=new ListAdapterMyStuff(listener);
         recyclerView.setAdapter(listAdapterMyStuff);
-
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 

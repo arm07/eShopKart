@@ -24,7 +24,7 @@
         android:id="@+id/navigation_saved"
         android:icon="@drawable/ic_image_saved"
         android:title="@string/title_saved"
-        android:visible="false"/>
+        android:visible="false" />
 
     <item
         android:id="@+id/navigation_mystuff"

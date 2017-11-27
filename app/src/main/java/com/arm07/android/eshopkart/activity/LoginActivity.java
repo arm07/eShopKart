@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(response.contains("success")){
                     Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
 
-                    Intent category_intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent category_intent = new Intent(LoginActivity.this, SignedActivity.class);
                     category_intent.putExtra(MainActivity.USER_LOGGED_IN,true);
 
 

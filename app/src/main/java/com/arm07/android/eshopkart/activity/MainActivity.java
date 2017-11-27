@@ -119,8 +119,7 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.L
                 case R.id.navigation_notifications:
                     // mTextMessage.setText(R.string.title_notifications);
                     return true;
-                case  R.id.navigation_saved:
-                    return false;
+
                 case R.id.navigation_mystuff:
 
                     /*user_looged_in = getIntent().getExtras().getBoolean(USER_LOGGED_IN);
