@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
+import com.arm07.android.eshopkart.fragment.MyStuffFragment;
 import com.arm07.android.eshopkart.model.MyStuff;
 
 /**
@@ -17,21 +18,35 @@ import com.arm07.android.eshopkart.model.MyStuff;
 
 public class ListAdapterMyStuff extends RecyclerView.Adapter {
 
-    private class ListViewHolder extends ViewHolder{
+    private static MyStuffFragment.ListMystuffSelected mListener;
+
+    public ListAdapterMyStuff(MyStuffFragment.ListMystuffSelected listener) {
+        mListener=listener;
+    }
+
+    private static class ListViewHolder extends ViewHolder implements View.OnClickListener{
         TextView mTextView;
         ImageView mImageIcon,mImageArrow;
         int mIndex;
 
-        public ListViewHolder(View itemView) {
+
+        public  ListViewHolder(View itemView) {
             super(itemView);
             mImageIcon=(ImageView)itemView.findViewById(R.id.itemImageIcon);
             mTextView=(TextView)itemView.findViewById(R.id.itemText);
             mImageArrow=(ImageView)itemView.findViewById(R.id.itemImageArrow);
+
+            itemView.setOnClickListener(this);
         }
         public void bindView(int position){
             mIndex=position;
             mTextView.setText(MyStuff.names[position]);
             mImageIcon.setImageResource(MyStuff.namesImageIds[position]);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onListMyStuffSelected(mIndex);
         }
     }
     @Override
