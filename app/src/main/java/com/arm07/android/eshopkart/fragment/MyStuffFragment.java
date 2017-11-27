@@ -30,17 +30,22 @@ public class MyStuffFragment extends Fragment {
     Button signInUpBTN;
 
     ListAdapterMyStuff listAdapterMyStuff;
+
+    public interface ListMystuffSelected{
+        void onListMyStuffSelected(int index);
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
+        // listener object to handle on Click event
+        ListMystuffSelected listener=(ListMystuffSelected)getActivity();
         View view = inflater.inflate(R.layout.fragment_mystuff, container, false);
 
         //Recycler view is inflated into the view, adapter is attached and layout manager is passed to the view
         recyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
         recyclerView.setHasFixedSize(true);
-
-        listAdapterMyStuff=new ListAdapterMyStuff();
+        //Passing the listener object to the adapter class for implementing onClick()
+        listAdapterMyStuff=new ListAdapterMyStuff(listener);
         recyclerView.setAdapter(listAdapterMyStuff);
 
         layoutManager = new LinearLayoutManager(getActivity());
