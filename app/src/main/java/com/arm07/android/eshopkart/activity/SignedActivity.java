@@ -101,7 +101,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
     };
 
     @Override
-    public void onListExploreSelected(int index) {
+    public void onListExploreSelected(int index,String id) {
 
         Log.i("MYTEST_ExploreList", "Products list");
         if (index == 5) {

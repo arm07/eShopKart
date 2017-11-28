@@ -37,21 +37,33 @@ public class FeaturedFragment extends Fragment {
     ArrayList<CategoryItem> mylistItems;
     RecyclerView.LayoutManager layoutManager;
     CategoryItem ct;
+    String id;
+    private int currentId;
+    //ListAdapterFeatured mListAdapterFeatured;
+
     //List<CategoryItem> mylistItems ;
+
+    private final String TAG = "Featured_Fragment";
 
     private String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
 
+    OnRecyclerViewItemClickListener listener;
+    //define interface
+    public interface OnRecyclerViewItemClickListener
+    {
+        void onItemClick(View view,String id);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_featured,container,false);
+        listener=(OnRecyclerViewItemClickListener)getActivity();
 
+        View view=inflater.inflate(R.layout.fragment_featured,container,false);
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerViewFeatured);
         recyclerView.setHasFixedSize(true);
-        layoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         mylistItems = new ArrayList<>();
         loadRecylerView();
         return view;
@@ -76,8 +88,9 @@ public class FeaturedFragment extends Fragment {
                         mylistItems.add(categoryItem);
                     }
 
-                    adapter = new ListAdapterFeatured(getActivity(), mylistItems);
+                    adapter = new ListAdapterFeatured(getActivity(), mylistItems,listener);
                     recyclerView.setAdapter(adapter);
+
                     Log.i("MYTEST_RESPONSE_Finished",response);
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -32,7 +32,6 @@ public class ListAdapterExplore extends RecyclerView.Adapter {
             super(itemView);
             textInGoods=(TextView)itemView.findViewById(R.id.itemInGoods);
             mImageDown=(ImageView)itemView.findViewById(R.id.itemImageDownArrow);
-
             itemView.setOnClickListener(this);
         }
 
@@ -44,7 +43,7 @@ public class ListAdapterExplore extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            mListener.onListExploreSelected(mIndex);
+            mListener.onListExploreSelected(mIndex,Explore.goodsIds[mIndex]);
         }
     }
     @Override

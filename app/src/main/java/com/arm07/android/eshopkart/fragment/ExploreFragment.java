@@ -27,21 +27,20 @@ public class ExploreFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ListAdapterExplore mListAdapterExplore;
-
+    ListExploreSelected listener;
     public interface ListExploreSelected{
-        void onListExploreSelected(int index);
+        void onListExploreSelected(int index,String prodId);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ListExploreSelected listener=(ListExploreSelected)getActivity();
+        listener=(ListExploreSelected)getActivity();
 
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
         recyclerView.setHasFixedSize(true);
-
         mListAdapterExplore=new ListAdapterExplore(listener);
         recyclerView.setAdapter(mListAdapterExplore);
         layoutManager = new LinearLayoutManager(getActivity());

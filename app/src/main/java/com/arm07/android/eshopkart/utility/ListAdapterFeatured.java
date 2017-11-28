@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
+import com.arm07.android.eshopkart.fragment.FeaturedFragment;
 import com.arm07.android.eshopkart.model.CategoryItem;
 import com.bumptech.glide.Glide;
 
@@ -23,14 +24,15 @@ public class ListAdapterFeatured extends RecyclerView.Adapter<ListAdapterFeature
 
     private Context context;
     private List<CategoryItem> mCategoryItemList;
+    private static FeaturedFragment.OnRecyclerViewItemClickListener mListener;
 
-
-    public ListAdapterFeatured(@NonNull Context context, @NonNull List<CategoryItem> objects) {
+    public ListAdapterFeatured(@NonNull Context context, @NonNull List<CategoryItem> objects,FeaturedFragment.OnRecyclerViewItemClickListener listener) {
         this.context = context;
         this.mCategoryItemList = objects;
+        mListener=listener;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView catagoryName, categoryDesc;
         private ImageView mImageView;
         private int mIndex;
@@ -39,14 +41,19 @@ public class ListAdapterFeatured extends RecyclerView.Adapter<ListAdapterFeature
             catagoryName =(TextView)itemView.findViewById(R.id.textNameInCard);
             categoryDesc =(TextView)itemView.findViewById(R.id.textDescInCard);
             mImageView=(ImageView)itemView.findViewById(R.id.imageInFeatured);
-        }
-        /*public void bindView(int position) {
-            mIndex=position;
-            final CategoryItem myItem = mCategoryItemList.get(position);
-            catagoryName.setText(mCategoryItemList.get(position).getCatagoryName());
-            categoryDesc.setText(mCategoryItemList.get(position).getCatagoryDiscription());
 
-        }*/
+            itemView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View view) {
+            //Toast.makeText(context, "Message-featured listitem clicked", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "clicked!! "+getPosition(), Toast.LENGTH_SHORT).show();
+            if(mListener!=null)
+                mListener.onItemClick(view,mCategoryItemList.get(mIndex).getId());
+        }
+        public void bindView(int position) {
+            mIndex=position;
+        }
     }
 
     @Override
@@ -68,7 +75,7 @@ public class ListAdapterFeatured extends RecyclerView.Adapter<ListAdapterFeature
         Glide.with(context)
                 .load(mCategoryItemList.get(position).getCatagoryImage())
                 .into(holder.mImageView);
-        //((MyViewHolder)holder).bindView(position);
+        ((MyViewHolder)holder).bindView(position);
     }
 
     @Override

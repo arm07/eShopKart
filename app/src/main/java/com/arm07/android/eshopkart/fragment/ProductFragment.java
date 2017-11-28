@@ -37,13 +37,23 @@ public class ProductFragment extends Fragment {
     ArrayList<Product> mylistItems;
     RecyclerView.LayoutManager layoutManager;
 
-    private String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_product.php?Id=205&api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
+    private String url;// = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_product.php?Id=205&api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
+    String urlExt="&api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
+    String tmpUrl="";
+    private int prodId;
+    private static final String tmpurl = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_product.php?Id=";
 
+    public ProductFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_product,container,false);
+        //tmpUrl=getArguments().getString("tmpUrl");
+        prodId=getArguments().getInt("subCategoryId");
+        //url=new String(tmpUrl+urlExt);
+        url=new String(tmpurl+prodId+urlExt);
 
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerViewProduct);
         recyclerView.setHasFixedSize(true);
