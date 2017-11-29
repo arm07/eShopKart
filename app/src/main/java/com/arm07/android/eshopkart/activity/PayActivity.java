@@ -92,7 +92,7 @@ public class PayActivity extends AppCompatActivity {
         button_pay=findViewById(R.id.button_payment);
 
         spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
-        order_phone_number = spref.getString("input_phone","");
+        order_phone_number = spref.getString("input_phone","9849985918");
         Log.d("logged_in_phone",order_phone_number+"");
 
         //order_phone_number="9849985918";
