@@ -1,6 +1,7 @@
 package com.arm07.android.eshopkart.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -90,10 +91,11 @@ public class PayActivity extends AppCompatActivity {
         //editText_amount=findViewById(R.id.editText_amount);
         button_pay=findViewById(R.id.button_payment);
 
-        /*spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
+        spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
         order_phone_number = spref.getString("input_phone","");
-        Log.d("logged_in_phone",order_phone_number+"");*/
-        order_phone_number="9849985918";
+        Log.d("logged_in_phone",order_phone_number+"");
+
+        //order_phone_number="9849985918";
 
         getCartItemsFromDB();
 

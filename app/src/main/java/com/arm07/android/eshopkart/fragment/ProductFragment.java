@@ -60,6 +60,7 @@ public class ProductFragment extends Fragment {
         //tmpUrl=getArguments().getString("tmpUrl");
         prodId=getArguments().getInt("subCategoryId");
         //url=new String(tmpUrl+urlExt);
+
         url=new String(tmpurl+prodId+urlExt);
 
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerViewProduct);
