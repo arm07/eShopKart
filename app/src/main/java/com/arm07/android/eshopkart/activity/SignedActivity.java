@@ -210,6 +210,11 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
             /*Intent intent = new Intent(SignedActivity.this, LoginActivity.class);
             startActivity(intent);*/
         }
+        if(index==7){
+            //SignOut Button Clicked
+            Intent intent=new Intent(SignedActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     //Featured Fragment List selection Handler
