@@ -46,7 +46,6 @@ public class ListAdapterFeatured extends RecyclerView.Adapter<ListAdapterFeature
         }
         @Override
         public void onClick(View view) {
-            //Toast.makeText(context, "Message-featured listitem clicked", Toast.LENGTH_LONG).show();
             //Toast.makeText(context, "clicked!! "+getPosition(), Toast.LENGTH_SHORT).show();
             if(mListener!=null)
                 mListener.onItemClick(view,mCategoryItemList.get(mIndex).getId());

@@ -20,19 +20,22 @@ import com.arm07.android.eshopkart.fragment.ExploreFragment;
 import com.arm07.android.eshopkart.fragment.FeaturedFragment;
 import com.arm07.android.eshopkart.fragment.MyStuffFragment;
 import com.arm07.android.eshopkart.fragment.ProductFragment;
+import com.arm07.android.eshopkart.fragment.ShopProductFragment;
 import com.arm07.android.eshopkart.fragment.SubCategoryFragment;
 import com.roughike.bottombar.BottomBar;
 
 public class MainActivity extends AppCompatActivity implements ExploreFragment.ListExploreSelected,MyStuffFragment.ListMystuffSelected,
-        FeaturedFragment.OnRecyclerViewItemClickListener,SubCategoryFragment.OnSubCategoryItemClickListener{
+        FeaturedFragment.OnRecyclerViewItemClickListener,SubCategoryFragment.OnSubCategoryItemClickListener,ProductFragment.OnProductClickListener{
 
     public static final String MY_STUFF_FRAGMENT="mystuff_fragment";
     public static final String FEATURED_FRAGMENT="featured_fragment";
+    public static final String SUB_CATEGORY_FRAGMENT="Sub_fragment";
     public static final String EXPLORE_FRAGMENT="Explore_fragment";
     public static final String PRODUCT_FRAGMENT="Product_fragment";
-    public static final String SUB_CATEGORY_FRAGMENT="Sub_fragment";
+    public static final String SHOP_PRODUCT_FRAGMENT="Shop_Product_fragment";
 
-    public static final String USER_LOGGED_IN="false";
+
+    public static final boolean USER_LOGGED_IN=false;
     boolean user_looged_in=false;
     private TextView mTextMessage;
     private int currentId,currSubId;
@@ -144,6 +147,29 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.L
                 .replace(R.id.content,productFragment,PRODUCT_FRAGMENT)
                 .addToBackStack(null).commit();
     }
+
+    //Product Fragment OnClick
+    @Override
+    public void onProdItemClicked(View view, int index,String id,String name,String quantity,
+                                  String price,String desc,String image) {
+        currSubId=Integer.valueOf(id);
+        Toast.makeText(getApplicationContext(),"Message-Product listitem clicked"+id, Toast.LENGTH_LONG).show();
+
+        Bundle bundle=new Bundle();
+        bundle.putInt("subCategoryId",currSubId);
+        bundle.putString("name",name);
+        bundle.putString("quant",quantity);
+        bundle.putString("price",price);
+        bundle.putString("desc",desc);
+        bundle.putString("img",image);
+        //bundle.putInt("index",index);
+        ShopProductFragment shopProductFragment=new ShopProductFragment();
+        shopProductFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content,shopProductFragment,SHOP_PRODUCT_FRAGMENT)
+                .addToBackStack(null).commit();
+    }
+
     @Override
     public void onListMyStuffSelected(int index) {
         //Toast.makeText(getApplicationContext(), "Message-mystuff listitem clicked", Toast.LENGTH_LONG).show();
@@ -168,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.L
                 .addToBackStack(null).commit();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
@@ -181,14 +208,27 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.L
                 searchView.clearFocus();
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSearch:
+                Toast.makeText(this, "You have selected Search Menu", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuShoppingCart:
+                Toast.makeText(this, "You have selected Shopping Cart", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MainActivity.this,PayActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return false;
     }
 }
 

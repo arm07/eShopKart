@@ -66,5 +66,8 @@ dependencies {
 
     compile 'com.google.android.gms:play-services-auth:11.6.0'
     compile 'com.google.android.gms:play-services-identity:11.6.0'
+
+    //Paypal
+    compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (input_password.length() >= 6)
                         {
                             if(signInEmail.getText().toString().toLowerCase().equals("sign in")){
-                                Toast.makeText(LoginActivity.this, "few conditions met", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(LoginActivity.this, "few conditions met", Toast.LENGTH_LONG).show();
 
                                 String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?" +
                                         "mobile=" + input_phone + "&password=" + input_password;
@@ -244,16 +244,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(LoginActivity.this, "got Response", Toast.LENGTH_LONG).show();
+                //Toast.makeText(LoginActivity.this, "got Response", Toast.LENGTH_LONG).show();
 
                 Log.d(TAG,"Result:"+response);
                 if(response.contains("success")){
-                    Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
+
+                    String apiKey=response.substring(response.indexOf("AppApiKey")+9,response.length());
+                    //Toast.makeText(LoginActivity.this,"APi Key"+apiKey,Toast.LENGTH_LONG).show();
 
                     Intent category_intent = new Intent(LoginActivity.this, SignedActivity.class);
-                    category_intent.putExtra(MainActivity.USER_LOGGED_IN,true);
-
-
+                    category_intent.putExtra("userIsLogged",true);
+                    category_intent.putExtra("apiKey",apiKey);
                     startActivity(category_intent);
 
                 } else if(response.contains("Mobile Number not register"))

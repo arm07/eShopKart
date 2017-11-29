@@ -15,6 +15,8 @@
     <string name="create_account">Create an Account</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="make_authorization_request">Google Sign In</string>
-    <string name="hello_card"></string>
+    <string name="hello_card">hello card</string>
+    <string name="price">PRICE: </string>
+    <string name="text_buy">BUY</string>
 
 </resources>

@@ -45,7 +45,7 @@ public class FeaturedFragment extends Fragment {
 
     private final String TAG = "Featured_Fragment";
 
-    private String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
+    private String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key=1fa9fde8966420a223ea80bf99b8a771&user_id=917";
 
     OnRecyclerViewItemClickListener listener;
     //define interface

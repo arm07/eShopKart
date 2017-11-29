@@ -38,17 +38,24 @@ public class ProductFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
 
     private String url;// = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_product.php?Id=205&api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
-    String urlExt="&api_key=4c1dbea3d6cd43b13a036fcc684284f5&user_id=908";
     String tmpUrl="";
+    String urlExt="&api_key=1fa9fde8966420a223ea80bf99b8a771&user_id=917";
     private int prodId;
     private static final String tmpurl = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_product.php?Id=";
 
+    OnProductClickListener mListener;
+    public interface OnProductClickListener{
+        void onProdItemClicked(View view,int index,String id,String name,String quantity,
+                               String price,String desc,String image);
+    }
     public ProductFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mListener=(OnProductClickListener)getActivity();
+
         View view=inflater.inflate(R.layout.fragment_product,container,false);
         //tmpUrl=getArguments().getString("tmpUrl");
         prodId=getArguments().getInt("subCategoryId");
@@ -79,13 +86,15 @@ public class ProductFragment extends Fragment {
                         JSONObject itemProduct = categories.getJSONObject(i);
                         String id=itemProduct.getString("Id");
                         String catagoryName=itemProduct.getString("ProductName");
+                        String quantity=itemProduct.getString("Quantity");
+                        String price=itemProduct.getString("Prize");
                         String catagoryDiscription=itemProduct.getString("Discription");
                         String catagoryImage=itemProduct.getString("Image");
-                        Product productItem=new Product(id,catagoryName,catagoryDiscription,catagoryImage);
+                        Product productItem=new Product(id,catagoryName,quantity,price,catagoryDiscription,catagoryImage);
                         mylistItems.add(productItem);
                     }
 
-                    adapter = new ListAdapterProduct(getActivity(), mylistItems);
+                    adapter = new ListAdapterProduct(getActivity(), mylistItems,mListener);
                     recyclerView.setAdapter(adapter);
                     Log.i("MYTEST_RESPONSE_Product_Finished",response);
                 } catch (JSONException e) {

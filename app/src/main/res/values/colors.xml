@@ -7,4 +7,9 @@
     <color name="colorText">#2D2E30</color>
     <color name="colorTextBack">#EFF0F1</color>
     <color name="colorIcons">#707173</color>
+    <color name="priceText">#FF1493</color>
+    <color name="paypal">#0177BC</color>
+    <color name="genre">#666666</color>
+    <color name="year">#888888</color>
+
 </resources>
