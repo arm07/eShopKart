@@ -94,8 +94,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
                     MyStuffSignedFragment myStuffFragment = new MyStuffSignedFragment();
                     android.support.v4.app.FragmentManager manager3 = getSupportFragmentManager();
                     android.support.v4.app.FragmentTransaction fragmentTransaction3 = manager3.beginTransaction();
-                    fragmentTransaction3.replace(R.id.content, myStuffFragment,MY_SIGNED_STUFF_FRAGMENT);
-                    //fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction3.replace(R.id.content2, myStuffFragment,MY_SIGNED_STUFF_FRAGMENT);
                     fragmentTransaction3.commit();
                     //fragmentTransaction3.addToBackStack(null);
                     return true;
@@ -111,14 +110,14 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         Log.i("MYTEST_ExploreList", "Products list");
 
         currSubId=Integer.valueOf(id);
-        Toast.makeText(getApplicationContext(),"Message-sub Category listitem clicked"+id, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Message-Explore(sub Category) listitem clicked"+id, Toast.LENGTH_LONG).show();
         Bundle bundle=new Bundle();
         bundle.putInt("subCategoryId",currSubId);
 
         ProductFragment productFragment = new ProductFragment();
         productFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content, productFragment, PRODUCT_FRAGMENT)
+                .replace(R.id.content2, productFragment, PRODUCT_FRAGMENT)
                 .addToBackStack(null).commit();
     }
 
@@ -135,7 +134,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         ProductFragment productFragment=new ProductFragment();
         productFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content,productFragment,PRODUCT_FRAGMENT)
+                .replace(R.id.content2,productFragment,PRODUCT_FRAGMENT)
                 .addToBackStack(null).commit();
     }
 
@@ -157,7 +156,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         ShopProductFragment shopProductFragment=new ShopProductFragment();
         shopProductFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content,shopProductFragment,SHOP_PRODUCT_FRAGMENT)
+                .replace(R.id.content2,shopProductFragment,SHOP_PRODUCT_FRAGMENT)
                 .addToBackStack(null).commit();
     }
 
@@ -184,7 +183,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         SubCategoryFragment subFragment = new SubCategoryFragment();
         subFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content, subFragment, SUB_CATEGORY_FRAGMENT)
+                .replace(R.id.content2, subFragment, SUB_CATEGORY_FRAGMENT)
                 .addToBackStack(null).commit();
     }
 
