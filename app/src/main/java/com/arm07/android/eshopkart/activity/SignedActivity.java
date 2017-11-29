@@ -101,26 +101,35 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
                 case R.id.navigation_search:
                     Log.i("MYTEST_explore","explore");
 
+                    Bundle bundle2=new Bundle();
+                    bundle2.putString("user_id",user_id);
+                    bundle2.putString("api_key",api_key);
+
                     ExploreFragment exploreFragment1 = new ExploreFragment();
                     android.support.v4.app.FragmentManager manager2 = getSupportFragmentManager();
                     android.support.v4.app.FragmentTransaction fragmentTransaction2 = manager2.beginTransaction();
                     fragmentTransaction2.replace(R.id.content2, exploreFragment1,EXPLORE_FRAGMENT);
                     fragmentTransaction2.commit();
+                    exploreFragment1.setArguments(bundle2);
                     // fragmentTransaction2.addToBackStack(null);
-                    Log.i("MYTEST_explore2","explore");
                     return true;
-                 /* case R.id.navigation_notifications:
+                /* case R.id.navigation_notifications:
                     // mTextMessage.setText(R.string.title_notifications);
                     return true;
-                case  R.id.navigation_saved:
+                 case  R.id.navigation_saved:
                     return false;*/
                 case R.id.navigation_mystuff:
                     Log.i("MYTEST_mystuff","mystuff");
+                    Bundle bundle3=new Bundle();
+                    bundle3.putString("user_id",user_id);
+                    bundle3.putString("api_key",api_key);
+
                     MyStuffSignedFragment myStuffFragment = new MyStuffSignedFragment();
                     android.support.v4.app.FragmentManager manager3 = getSupportFragmentManager();
                     android.support.v4.app.FragmentTransaction fragmentTransaction3 = manager3.beginTransaction();
                     fragmentTransaction3.replace(R.id.content2, myStuffFragment,MY_SIGNED_STUFF_FRAGMENT);
                     fragmentTransaction3.commit();
+                    myStuffFragment.setArguments(bundle3);
                     //fragmentTransaction3.addToBackStack(null);
                     return true;
             }
@@ -138,6 +147,8 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         Toast.makeText(getApplicationContext(),"Message-Explore(sub Category) listitem clicked"+id, Toast.LENGTH_LONG).show();
         Bundle bundle=new Bundle();
         bundle.putInt("subCategoryId",currSubId);
+        bundle.putString("user_id",user_id);
+        bundle.putString("api_key",api_key);
 
         ProductFragment productFragment = new ProductFragment();
         productFragment.setArguments(bundle);
@@ -155,6 +166,8 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
 
         Bundle bundle=new Bundle();
         bundle.putInt("subCategoryId",currSubId);
+        bundle.putString("user_id",user_id);
+        bundle.putString("api_key",api_key);
 
         ProductFragment productFragment=new ProductFragment();
         productFragment.setArguments(bundle);
@@ -177,6 +190,9 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         bundle.putString("price",price);
         bundle.putString("desc",desc);
         bundle.putString("img",image);
+
+        bundle.putString("user_id",user_id);
+        bundle.putString("api_key",api_key);
         //bundle.putInt("index",index);
         ShopProductFragment shopProductFragment=new ShopProductFragment();
         shopProductFragment.setArguments(bundle);
@@ -202,11 +218,13 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         currentId=Integer.valueOf(id);
         Toast.makeText(getApplicationContext(),"Message-featured listitem clicked"+id, Toast.LENGTH_LONG).show();
 
-        Bundle bundle=new Bundle();
-        bundle.putInt("categoryId",currentId);
+        Bundle bundle2=new Bundle();
+        bundle2.putString("user_id",user_id);
+        bundle2.putString("api_key",api_key);
+        bundle2.putInt("categoryId",currentId);
 
         SubCategoryFragment subFragment = new SubCategoryFragment();
-        subFragment.setArguments(bundle);
+        subFragment.setArguments(bundle2);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content2, subFragment, SUB_CATEGORY_FRAGMENT)
                 .addToBackStack(null).commit();

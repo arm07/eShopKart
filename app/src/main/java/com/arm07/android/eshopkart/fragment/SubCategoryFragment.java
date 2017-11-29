@@ -38,9 +38,7 @@ public class SubCategoryFragment extends Fragment {
 
     private final String TAG = "SubCategory_Fragment";
     private static final String tmpurl = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_sub_category.php?Id=";
-    private static final String api_key="4c1dbea3d6cd43b13a036fcc684284f5";
-    private static final String user_id="908";
-    String urlExt="&api_key=1fa9fde8966420a223ea80bf99b8a771&user_id=917";
+    //String urlExt="&api_key=1fa9fde8966420a223ea80bf99b8a771&user_id=917";
     private static String url;
 
     private SubCategory subcategory;
@@ -51,7 +49,9 @@ public class SubCategoryFragment extends Fragment {
     private ArrayList<SubCategory> subcategoryList;
     private int productId;
     private int subCategoryId;
-   // private String subCategoryId;
+    String apiKey,userId,urlExt="&api_key=1fa9fde8966420a223ea80bf99b8a771&user_id=917";
+
+    // private String subCategoryId;
 
     OnSubCategoryItemClickListener mListener;
     public interface OnSubCategoryItemClickListener {
@@ -66,7 +66,20 @@ public class SubCategoryFragment extends Fragment {
 
         //subCategoryId = getArguments().getString("categoryId");
         subCategoryId = getArguments().getInt("categoryId");
-        url = new String(tmpurl + subCategoryId+urlExt);
+
+        Bundle bundle=getArguments();
+        if(bundle!=null) {
+            apiKey = bundle.getString("api_key");
+            userId = bundle.getString("user_id");
+            if(apiKey!=null)
+                url=new String(tmpurl+subCategoryId+"&api_key="+apiKey+"&user_id="+userId);
+            else
+                url=new String(tmpurl+subCategoryId+urlExt);
+
+        }
+
+        Toast.makeText(getActivity(),"category url"+url, Toast.LENGTH_LONG).show();
+
         requestSubCategoryData();
 
         subcategoryRecyclerView = view.findViewById(R.id.recyclerViewSubCateg);
