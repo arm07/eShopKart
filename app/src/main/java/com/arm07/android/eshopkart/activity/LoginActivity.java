@@ -1,6 +1,8 @@
 package com.arm07.android.eshopkart.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,13 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.arm07.android.eshopkart.MainApplication;
@@ -33,6 +38,10 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import net.openid.appauth.AuthState;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +66,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     GoogleSignInClient mGoogleSignInClient;
     private static final int REQ_CODE=9001;
 
+    private String global_phone_value;
+    private String jsonResponse;
+
     private SharedPreferences spref;
 
     @BindView(R.id.sign_in_button)
@@ -78,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.textViewAlreadyAccount)
     AppCompatTextView alreadyAccnt;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +100,50 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
         //mSignInButton.setOnClickListener();
         spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
+
+        forgotPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                LayoutInflater inflater = LoginActivity.this.getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+                dialogBuilder.setView(dialogView);
+
+                final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
+
+                dialogBuilder.setTitle("RESET PASSWORD");
+                dialogBuilder.setMessage("Please enter your phone number ");
+                dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //do something with edt.getText().toString();
+                        //Toast.makeText(getApplicationContext(),"reset password link sent", Toast.LENGTH_LONG).show();
+
+                        String registered_phone = edt.getText().toString().trim();
+                        global_phone_value = registered_phone;
+
+                        if((!registered_phone.isEmpty())&&(registered_phone.length()==10)){
+                            String forgot_pass_url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_fogot_pass.php?"+
+                                    "&mobile="+registered_phone;
+                            submitPhoneNumber(forgot_pass_url);
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this, "Please Enter Valid Mobile of 10 digit", Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                });
+                dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //pass
+                    }
+                });
+                AlertDialog b = dialogBuilder.create();
+                b.show();
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +248,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mGoogleSignInClient=GoogleSignIn.getClient(this, gso);
         mGoogleApiClient=new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();*/
 
+    }
+
+    private void submitPhoneNumber(String url) {
+
+        String  tag_string_req = "string_req_forgot";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,new Response.Listener<JSONArray>(){
+            @Override
+            public void onResponse(JSONArray response) {
+                try{
+                    jsonResponse="";
+                    for (int i = 0; i < response.length(); i++) {
+
+                        JSONObject result = response.getJSONObject(i);
+                        String UserPassword = result.getString("UserPassword");
+                        jsonResponse+= UserPassword;
+
+                    }
+                    Toast.makeText(LoginActivity.this,"Your Password is: "+jsonResponse,Toast.LENGTH_LONG).show();
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        // Adding request to request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+        requestQueue.add(jsonArrayRequest);
     }
 
     private void register_user(String URL) {

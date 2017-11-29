@@ -18,5 +18,6 @@
     <string name="hello_card">hello card</string>
     <string name="price">PRICE: </string>
     <string name="text_buy">BUY</string>
+    <string name="checkout">CHECKOUT</string>
 
 </resources>
