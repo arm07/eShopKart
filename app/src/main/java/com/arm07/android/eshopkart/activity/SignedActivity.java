@@ -1,12 +1,19 @@
 package com.arm07.android.eshopkart.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -39,6 +46,9 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
     boolean user_looged_in = false;
     private TextView mTextMessage;
 
+    private SharedPreferences spref;
+    String api_key,user_id;
+
     private int currentId,currSubId;
     BottomBar bottomBar;
 
@@ -49,11 +59,18 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signed);
 
-        //user_looged_in=getIntent().getBooleanExtra("userIsLogged",false);
+
+        spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
+         api_key= spref.getString("api_key","1fa9fde8966420a223ea80bf99b8a771");
+         user_id=spref.getString("user_id","917");
+
+        Toast.makeText(SignedActivity.this,"userId"+user_id, Toast.LENGTH_LONG).show();
+
+
         //BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         //navigation.getMenu().findItem(R.id.navigation_saved).setVisible(true);
         //navigation.enableShiftingMode(false);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -64,12 +81,20 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Log.i("MYTEST_home","HOME");
+
+                    Bundle bundle=new Bundle();
+                    bundle.putString("user_id",user_id);
+                    bundle.putString("api_key",api_key);
+                    Toast.makeText(SignedActivity.this,"userId"+user_id, Toast.LENGTH_LONG).show();
+
                     FeaturedFragment fragment=new FeaturedFragment();
                     FragmentManager manager=getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction=manager.beginTransaction();
                     fragmentTransaction.replace(R.id.content2,fragment,FEATURED_FRAGMENT);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
+
+                    fragment.setArguments(bundle);
                     //fragmentTransaction.addToBackStack(null);
                     Log.i("MYTEST_home2","HOME");
                     return true;
@@ -84,11 +109,11 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
                     // fragmentTransaction2.addToBackStack(null);
                     Log.i("MYTEST_explore2","explore");
                     return true;
-             /*   case R.id.navigation_notifications:
+                 /* case R.id.navigation_notifications:
                     // mTextMessage.setText(R.string.title_notifications);
-                    return true;*/
+                    return true;
                 case  R.id.navigation_saved:
-                    return false;
+                    return false;*/
                 case R.id.navigation_mystuff:
                     Log.i("MYTEST_mystuff","mystuff");
                     MyStuffSignedFragment myStuffFragment = new MyStuffSignedFragment();
@@ -188,6 +213,42 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
     }
 
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu_search,menu);
+        MenuItem item=menu.findItem(R.id.menuSearch);
+        final SearchView searchView= (SearchView) MenuItemCompat.getActionView(item); //item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchView.clearFocus();
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSearch:
+                Toast.makeText(this, "You have selected Search Menu", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuShoppingCart:
+                Toast.makeText(this, "You have selected Shopping Cart", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(SignedActivity.this,PayActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return false;
+    }
 
 
 

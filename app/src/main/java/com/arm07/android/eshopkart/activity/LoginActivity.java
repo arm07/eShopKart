@@ -250,12 +250,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(response.contains("success")){
                     //Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
 
-                    String apiKey=response.substring(response.indexOf("AppApiKey")+9,response.length());
+                    String apiKey=response.substring(response.indexOf("AppApiKey")+13,response.length()-3);
                     //Toast.makeText(LoginActivity.this,"APi Key"+apiKey,Toast.LENGTH_LONG).show();
+                    String userId=response.substring(response.indexOf("UserID")+9,response.indexOf("UserName")-3);
+                    //Toast.makeText(LoginActivity.this,"User Id"+userId,Toast.LENGTH_LONG).show();
+                    SharedPreferences.Editor editPef = spref.edit();
+                    editPef.putString("api_key",apiKey);
+                    editPef.putString("user_id",userId);
+                    editPef.apply();
 
                     Intent category_intent = new Intent(LoginActivity.this, SignedActivity.class);
-                    category_intent.putExtra("userIsLogged",true);
-                    category_intent.putExtra("apiKey",apiKey);
+                    /*category_intent.putExtra("userIsLogged",true);
+                    category_intent.putExtra("apiKey",apiKey);*/
                     startActivity(category_intent);
 
                 } else if(response.contains("Mobile Number not register"))
