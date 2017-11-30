@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -78,7 +77,7 @@ public class FeaturedFragment extends Fragment {
             url="http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key=1fa9fde8966420a223ea80bf99b8a771&user_id=917";
         }
 
-        Toast.makeText(getActivity(),"category url"+url, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),"category url"+url, Toast.LENGTH_LONG).show();
         mylistItems = new ArrayList<>();
         loadRecylerView();
         return view;

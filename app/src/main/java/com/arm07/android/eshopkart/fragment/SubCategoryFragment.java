@@ -78,7 +78,7 @@ public class SubCategoryFragment extends Fragment {
 
         }
 
-        Toast.makeText(getActivity(),"category url"+url, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),"category url"+url, Toast.LENGTH_LONG).show();
 
         requestSubCategoryData();
 
