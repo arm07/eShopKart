@@ -61,7 +61,6 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signed);
 
-
         spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
          api_key= spref.getString("api_key","1fa9fde8966420a223ea80bf99b8a771");
          user_id=spref.getString("user_id","917");
@@ -69,10 +68,6 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
 
         Toast.makeText(SignedActivity.this,"userId"+user_id, Toast.LENGTH_LONG).show();
 
-
-        //BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
-        //navigation.getMenu().findItem(R.id.navigation_saved).setVisible(true);
-        //navigation.enableShiftingMode(false);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -215,7 +210,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
             startActivity(intent);*/
         }
         if(index==3){
-            Toast.makeText(getApplicationContext(), "Message-mystuff Pref(hist) clicked", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Mystuff history clicked", Toast.LENGTH_LONG).show();
             Bundle bundle=new Bundle();
             bundle.putString("user_id",user_id);
             bundle.putString("api_key",api_key);
@@ -228,9 +223,18 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
                     .addToBackStack(null).commit();
 
         }
+        if(index==4){
+            Toast.makeText(getApplicationContext(), "Mystuff reset Password clicked", Toast.LENGTH_LONG).show();
+
+        }
         if(index==7){
             //SignOut Button Clicked
             Intent intent=new Intent(SignedActivity.this,MainActivity.class);
+            SharedPreferences preferences =getSharedPreferences("file5", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.apply();
+            finish();
             startActivity(intent);
         }
     }
@@ -252,7 +256,6 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
                 .replace(R.id.content2, subFragment, SUB_CATEGORY_FRAGMENT)
                 .addToBackStack(null).commit();
     }
-
 
 
     @Override
@@ -290,7 +293,6 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         }
         return false;
     }
-
 
 
 }

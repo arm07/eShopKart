@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
 
-
     private ArrayList<Order> orderArrayList;
     private final LayoutInflater layoutInflater;
 
@@ -44,7 +43,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.prize.setText(orderArrayList.get(position).FinalPrice);
         holder.status.setText(orderArrayList.get(position).OrderStatus);
         holder.itemView.setTag(orderArrayList.get(position).OrderID);
-
     }
 
     @Override

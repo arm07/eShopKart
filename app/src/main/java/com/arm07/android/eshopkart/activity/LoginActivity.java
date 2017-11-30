@@ -334,12 +334,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //Toast.makeText(LoginActivity.this, "got Response", Toast.LENGTH_LONG).show();
 
                 Log.d(TAG,"Result:"+response);
                 if(response.contains("success")){
-                    //Toast.makeText(LoginActivity.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
-
                     String apiKey=response.substring(response.indexOf("AppApiKey")+13,response.length()-3);
                     //Toast.makeText(LoginActivity.this,"APi Key"+apiKey,Toast.LENGTH_LONG).show();
                     String userId=response.substring(response.indexOf("UserID")+9,response.indexOf("UserName")-3);
@@ -350,13 +347,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editPef.apply();
 
                     Intent category_intent = new Intent(LoginActivity.this, SignedActivity.class);
-                    /*category_intent.putExtra("userIsLogged",true);
-                    category_intent.putExtra("apiKey",apiKey);*/
                     startActivity(category_intent);
 
                 } else if(response.contains("Mobile Number not register"))
                 {
-                    Toast.makeText(LoginActivity.this,"MOBILE NUMBER NOT REGISTERED - CREATE AN ACCOUNT",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"MOBILE NUMBER NOT REGISTERED - PLEASE CREATE AN ACCOUNT",Toast.LENGTH_LONG).show();
                 }
                 else if(response.contains("incorrect password"))
                 {
@@ -373,11 +368,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Adding request to request queue
         RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
         requestQueue.add(stringRequest);
-
         //AppController.getInstance().addToRequestQueue(stringRequest, tag_string_req_home);
 
     }
-
 
     /*
     @Override
@@ -568,7 +561,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -604,7 +596,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
-
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

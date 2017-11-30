@@ -8,7 +8,7 @@ import com.arm07.android.eshopkart.R;
 
 public class MyStuffSigned {
 
-    public static String[] names=new String[]{"Notification Settings","Background Location","Payment Methods","Deal Prefernces","Change Password",
+    public static String[] names=new String[]{"Notification Settings","Background Location","Payment Methods","Order History","Change Password",
             "Contact Customer Support","About Groupon","Sign Out"};
 
     public static int[] namesImageIds = new int[]{R.drawable.ic_notification,R.drawable.ic_location,R.drawable.ic_credit,R.drawable.ic_preferences,
