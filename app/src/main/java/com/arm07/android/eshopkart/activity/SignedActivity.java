@@ -23,6 +23,7 @@ import com.arm07.android.eshopkart.R;
 import com.arm07.android.eshopkart.fragment.ExploreFragment;
 import com.arm07.android.eshopkart.fragment.FeaturedFragment;
 import com.arm07.android.eshopkart.fragment.MyStuffSignedFragment;
+import com.arm07.android.eshopkart.fragment.OrderHistoryFragment;
 import com.arm07.android.eshopkart.fragment.ProductFragment;
 import com.arm07.android.eshopkart.fragment.ShopProductFragment;
 import com.arm07.android.eshopkart.fragment.SubCategoryFragment;
@@ -41,13 +42,14 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
     public static final String PRODUCT_FRAGMENT = "Product_fragment";
     public static final String SUB_CATEGORY_FRAGMENT="Sub_fragment";
     public static final String SHOP_PRODUCT_FRAGMENT="Shop_Product_fragment";
+    public static final String ORDER_HISTORY_FRAGMENT="Order_History_fragment";
 
     public static final boolean USER_LOGGED_IN=true;
     boolean user_looged_in = false;
     private TextView mTextMessage;
 
     private SharedPreferences spref;
-    String api_key,user_id;
+    String api_key,user_id,order_phone_number;
 
     private int currentId,currSubId;
     BottomBar bottomBar;
@@ -63,6 +65,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
          api_key= spref.getString("api_key","1fa9fde8966420a223ea80bf99b8a771");
          user_id=spref.getString("user_id","917");
+        order_phone_number = spref.getString("input_phone","9849985918");
 
         Toast.makeText(SignedActivity.this,"userId"+user_id, Toast.LENGTH_LONG).show();
 
@@ -120,16 +123,17 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
                     return false;*/
                 case R.id.navigation_mystuff:
                     Log.i("MYTEST_mystuff","mystuff");
-                    Bundle bundle3=new Bundle();
+                    /*Bundle bundle3=new Bundle();
                     bundle3.putString("user_id",user_id);
                     bundle3.putString("api_key",api_key);
+                    bundle3.putString("input_phone",order_phone_number);*/
 
                     MyStuffSignedFragment myStuffFragment = new MyStuffSignedFragment();
                     android.support.v4.app.FragmentManager manager3 = getSupportFragmentManager();
                     android.support.v4.app.FragmentTransaction fragmentTransaction3 = manager3.beginTransaction();
                     fragmentTransaction3.replace(R.id.content2, myStuffFragment,MY_SIGNED_STUFF_FRAGMENT);
                     fragmentTransaction3.commit();
-                    myStuffFragment.setArguments(bundle3);
+                    //myStuffFragment.setArguments(bundle3);
                     //fragmentTransaction3.addToBackStack(null);
                     return true;
             }
@@ -209,6 +213,20 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
             //include Paypal & credit cards info
             /*Intent intent = new Intent(SignedActivity.this, LoginActivity.class);
             startActivity(intent);*/
+        }
+        if(index==3){
+            Toast.makeText(getApplicationContext(), "Message-mystuff Pref(hist) clicked", Toast.LENGTH_LONG).show();
+            Bundle bundle=new Bundle();
+            bundle.putString("user_id",user_id);
+            bundle.putString("api_key",api_key);
+            bundle.putString("input_phone",order_phone_number);
+
+            OrderHistoryFragment historyFragment=new OrderHistoryFragment();
+            historyFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content2,historyFragment,ORDER_HISTORY_FRAGMENT)
+                    .addToBackStack(null).commit();
+
         }
         if(index==7){
             //SignOut Button Clicked
