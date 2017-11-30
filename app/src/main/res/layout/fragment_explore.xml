@@ -5,7 +5,8 @@
 
     <TextView
             android:text="Suggestions"
-            android:textSize="15dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:layout_margin="4dp"
             android:textColor="@color/colorText"
             android:background="@color/colorTextBack"
@@ -22,7 +23,8 @@
 
     <TextView
         android:text="Goods"
-        android:textSize="15dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:layout_margin="4dp"
         android:textColor="@color/colorText"
         android:background="@color/colorTextBack"

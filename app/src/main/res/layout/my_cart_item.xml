@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Thumbnail Image -->
     <!--<com.android.volley.toolbox.NetworkImageView
@@ -10,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginRight="8dp" />-->
     <ImageView
-        android:id="@+id/thumbnail"
+        android:id="@+id/order_id"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
@@ -21,8 +23,8 @@
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_alignTop="@+id/order_id"
+        android:layout_toRightOf="@+id/order_id"
         android:textSize="@dimen/title"
         android:textStyle="bold" />
 
@@ -33,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textTitle"
         android:layout_marginTop="1dip"
-        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toRightOf="@+id/order_id"
         android:textSize="@dimen/rating" />
 
 
@@ -43,10 +45,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/prodPrice"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/order_id"
         android:textColor="@color/genre"
-        android:textSize="@dimen/genre" />
+        android:textSize="@dimen/genre" />\
+
+    <Spinner
+        android:id="@+id/spinnerInCart"
+        android:layout_width="82dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@+id/order_id"
+        android:layout_below="@+id/quantity"
+         />
 
     <!--&lt;!&ndash; Genre &ndash;&gt;
     <TextView

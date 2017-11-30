@@ -19,5 +19,6 @@
     <string name="price">PRICE: </string>
     <string name="text_buy">BUY</string>
     <string name="checkout">CHECKOUT</string>
+    <string name="quantity">QUANTITY</string>
 
 </resources>

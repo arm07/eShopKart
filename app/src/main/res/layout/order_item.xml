@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Id-->
+    <TextView
+        android:id="@+id/order_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="@dimen/title"
+        android:textStyle="bold" />
+
+    <!-- Product Title -->
+    <TextView
+        android:id="@+id/order_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/order_id"
+        android:layout_toRightOf="@+id/order_id"
+        android:textSize="@dimen/title"
+        android:textStyle="bold" />
+
+    <!-- Price -->
+    <TextView
+        android:id="@+id/order_prize"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_name"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/order_id"
+        android:textSize="@dimen/rating" />
+
+    <!-- Quantity -->
+    <TextView
+        android:id="@+id/order_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_prize"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/order_id"
+        android:textColor="@color/genre"
+        android:textSize="@dimen/genre" />
+
+
+    <!-- Status &ndash-->
+    <TextView
+        android:id="@+id/order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/year"
+        android:textSize="@dimen/year" />
+
+</LinearLayout>

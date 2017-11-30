@@ -9,12 +9,12 @@
         android:id="@+id/itemInGoods"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:text="New Text" />
     <ImageView
         android:id="@+id/itemImageDownArrow"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:scaleType="center"
         app:srcCompat="@drawable/ic_down" />
 </LinearLayout>

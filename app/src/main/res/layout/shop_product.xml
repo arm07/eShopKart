@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
@@ -26,8 +28,7 @@
                 android:id="@+id/shopProdtextNameInCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
                 android:text="@string/hello_card"
                 android:textSize="20dp"/>
 
@@ -35,9 +36,15 @@
                 android:id="@+id/shopProdtextQuantInCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_alignParentBottom="true"
-                android:text="@string/hello_card" />
+                android:layout_margin="5dp"
+                android:text="@string/quantity" />
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="82dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toEndOf="@+id/shopProdtextQuantInCard" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
