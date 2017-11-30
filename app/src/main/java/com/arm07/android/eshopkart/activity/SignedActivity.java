@@ -25,6 +25,7 @@ import com.arm07.android.eshopkart.fragment.FeaturedFragment;
 import com.arm07.android.eshopkart.fragment.MyStuffSignedFragment;
 import com.arm07.android.eshopkart.fragment.OrderHistoryFragment;
 import com.arm07.android.eshopkart.fragment.ProductFragment;
+import com.arm07.android.eshopkart.fragment.ResetFragment;
 import com.arm07.android.eshopkart.fragment.ShopProductFragment;
 import com.arm07.android.eshopkart.fragment.SubCategoryFragment;
 import com.roughike.bottombar.BottomBar;
@@ -43,6 +44,7 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
     public static final String SUB_CATEGORY_FRAGMENT="Sub_fragment";
     public static final String SHOP_PRODUCT_FRAGMENT="Shop_Product_fragment";
     public static final String ORDER_HISTORY_FRAGMENT="Order_History_fragment";
+    public static final String RESET_PASSWORD_FRAGMENT="Reset Password";
 
     public static final boolean USER_LOGGED_IN=true;
     boolean user_looged_in = false;
@@ -226,7 +228,12 @@ public class SignedActivity extends AppCompatActivity implements ExploreFragment
         if(index==4){
             Toast.makeText(getApplicationContext(), "Mystuff reset Password clicked", Toast.LENGTH_LONG).show();
 
+            ResetFragment resetFragment=new ResetFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content2,resetFragment,RESET_PASSWORD_FRAGMENT)
+                    .addToBackStack(null).commit();
         }
+
         if(index==7){
             //SignOut Button Clicked
             Intent intent=new Intent(SignedActivity.this,MainActivity.class);
