@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.arm07.android.eshopkart.R;
@@ -29,11 +31,15 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.MyViewHolder> {
     private SQL sqlHelper;
     private SQLiteDatabase db;
     PayAdapter myCartAdapter;
+    ArrayAdapter mArrayAdapter;
+    ArrayList<String> list;
 
-    public PayAdapter(Context context,ArrayList<MyCart> myCartArrayList) {
+    public PayAdapter(Context context, ArrayList<MyCart> myCartArrayList, ArrayAdapter adapter,ArrayList<String> list) {
         this.myCartArrayList = myCartArrayList;
         layoutInflater = LayoutInflater.from(context);;
         this.context = context;
+        mArrayAdapter=adapter;
+        this.list=list;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -42,42 +48,42 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.MyViewHolder> {
         TextView Item_quantity;
         TextView Item_price;
         ImageView image;
+        Spinner mSpinner;
         //final Button add_item;
         //final Button subtract_item;
         //final TextView required_quantity;
-
         public MyViewHolder(View itemView) {
             super(itemView);
             Item_name=(TextView)itemView.findViewById(R.id.textTitle);
             Item_price=(TextView)itemView.findViewById(R.id.prodPrice);
             Item_quantity=(TextView)itemView.findViewById(R.id.quantity);
-            image=(ImageView)itemView.findViewById(R.id.thumbnail);
-
+            image=(ImageView)itemView.findViewById(R.id.order_id);
+            mSpinner=itemView.findViewById(R.id.spinnerInCart);
         }
     }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_cart_item,null);
-        //view.setOnClickListener(this);
 
+        //view.setOnClickListener(this);
         sqlHelper = new SQL(context);
         db = sqlHelper.getWritableDatabase();
 
         return new PayAdapter.MyViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         //holder.Item_ID.setText(myCartArrayList.get(position).ID);
         holder.Item_name.setText(myCartArrayList.get(position).ProductName);
-        holder.Item_quantity.setText(myCartArrayList.get(position).Quantity);
+        //holder.Item_quantity.setText(myCartArrayList.get(position).Quantity);
         holder.Item_price.setText(myCartArrayList.get(position).Price);
         //holder.itemView.setTag(myCartArrayList.get(position).ID);
         Picasso.with(context)
                 .load(myCartArrayList.get(position).Image)
                 .into(holder.image);
+        holder.mSpinner.setAdapter(mArrayAdapter);
+
 
     }
 
@@ -85,5 +91,6 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.MyViewHolder> {
     public int getItemCount() {
         return myCartArrayList.size();
     }
+
 
 }

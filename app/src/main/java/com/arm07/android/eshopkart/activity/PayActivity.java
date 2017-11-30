@@ -12,8 +12,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -62,7 +64,9 @@ public class PayActivity extends AppCompatActivity {
     private float total_bill = 0;
     EditText editText_amount;
     Button button_pay;
-
+    Spinner mSpinner;
+    ArrayAdapter adapter;
+    ArrayList<String> list;
     String urlExt="&api_key=1fa9fde8966420a223ea80bf99b8a771&user_id=917";
 
     /*
@@ -85,11 +89,12 @@ public class PayActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerViewPayment);
         recyclerView.setHasFixedSize(false);
-        layoutManager=new LinearLayoutManager(PayActivity.this);
+        layoutManager=new LinearLayoutManager(PayActivity.this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
         //editText_amount=findViewById(R.id.editText_amount);
         button_pay=findViewById(R.id.button_payment);
+        mSpinner=findViewById(R.id.spinnerInCart);
 
         spref = getSharedPreferences("file5", Context.MODE_PRIVATE);
         order_phone_number = spref.getString("input_phone","9849985918");
@@ -137,19 +142,25 @@ public class PayActivity extends AppCompatActivity {
                         + "&final_price=" + Product_Price + "&mobile=" + order_phone_number;
 
                 url=new String(place_order_url+urlExt);
-                placeOrder(url);
 
+                 list = new ArrayList<>();
+                for(int i = 0; i<=Integer.valueOf(Product_QTY); i++){
+                    list.add(""+i);
+                }
+                adapter = new ArrayAdapter(PayActivity.this,android.R.layout.simple_spinner_item,list);
+                //mSpinner.setAdapter(adapter);
+
+                placeOrder(url);
                 myCartArrayList.add(myCart);
 
             } while (cursor.moveToNext());
 
             if (myCartArrayList.size() > 0) {
-
-                myCartAdapter = new PayAdapter(this, myCartArrayList);
+                myCartAdapter = new PayAdapter(this, myCartArrayList,adapter,list);
                 recyclerView.setAdapter(myCartAdapter);
             } else {
                 ArrayList<MyCart> myCartArrayList = new ArrayList<>();
-                myCartAdapter = new PayAdapter(this, myCartArrayList);
+                myCartAdapter = new PayAdapter(this, myCartArrayList,adapter,list);
                 recyclerView.setAdapter(myCartAdapter);
             }
         }

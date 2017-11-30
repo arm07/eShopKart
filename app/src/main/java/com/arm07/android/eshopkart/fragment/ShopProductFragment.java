@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,12 +53,15 @@ public class ShopProductFragment extends android.support.v4.app.Fragment {
      TextView tvDesc;
     @BindView(R.id.appCompatButtonBuy)
     Button btnBuy;
+    @BindView(R.id.spinner)
+    Spinner spinnerQuant;
 
     private int prodId,currIndex;
     private String name, quantity,price,desc,image;
     private static Product mylistItem;
     ArrayList<Product> myProdlistItems;
 
+    //private Spinner spinner;
     private SQL SqlHelper;
     private SQLiteDatabase db;
 
@@ -81,6 +86,7 @@ public class ShopProductFragment extends android.support.v4.app.Fragment {
         SqlHelper = new SQL(getContext());
         db = SqlHelper.getWritableDatabase();
 
+
         Bundle bundle=getArguments();
         if(bundle!=null){
             prodId=getArguments().getInt("subCategoryId");
@@ -95,9 +101,10 @@ public class ShopProductFragment extends android.support.v4.app.Fragment {
         //myProdlistItems.get(currIndex).getImage())
         Picasso.with(getActivity()).load(image).into(imageView);
         tvName.setText(name);
-        tvQuan.setText(quantity);
+        //tvQuan.setText(quantity);
         tvDesc.setText(desc);
-        tvPrice.setText(price);
+        addSpinner(quantity);
+        tvPrice.setText(quantity);
 
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +121,16 @@ public class ShopProductFragment extends android.support.v4.app.Fragment {
             }
         });
         return view;
+    }
+
+    private void addSpinner(String quantity) {
+
+        ArrayList<String> list = new ArrayList<>();
+        for(int i = 0; i<=Integer.valueOf(quantity); i++){
+            list.add(""+i);
+        }
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,list);
+        spinnerQuant.setAdapter(adapter);
     }
 
     @Override
